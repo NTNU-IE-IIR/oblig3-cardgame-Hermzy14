@@ -12,3 +12,12 @@
     -fx-background-color: #e4e4e4;
     -fx-cursor: hand;
 }
+
+.bottom-pane-child{
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5;
+}
