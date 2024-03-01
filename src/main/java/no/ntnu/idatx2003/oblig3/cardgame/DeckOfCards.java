@@ -1,5 +1,7 @@
 package no.ntnu.idatx2003.oblig3.cardgame;
 
+import java.util.Random;
+
 /**
  * Represents a deck of cards. A deck of cards has 52 cards, 13 of each suit.
  */
@@ -18,5 +20,31 @@ public class DeckOfCards {
         this.deck[i++] = new PlayingCard(suit, face);
       }
     }
+  }
+
+  /**
+   * Deals a random hand of cards from the deck and returns them as a collection.
+   *
+   * @param n The random number of cards to deal
+   * @return A collection of n cards
+   */
+  public HandOfCards dealHand(int n) {
+    if (n > this.deck.length) {
+      throw new IllegalArgumentException("Cannot deal more cards than there are in the deck");
+    }
+
+    Random random = new Random();
+    PlayingCard[] hand = new PlayingCard[n];
+    // Deal n cards
+    for (int i = 0; i < n; i++) {
+      // Pick a random card from the deck
+      int index = random.nextInt(this.deck.length);
+      // Add the card to the hand
+      hand[i] = this.deck[index];
+      // Remove the card from the deck
+      this.deck[index] = this.deck[this.deck.length - 1];
+    }
+
+    return new HandOfCards(hand);
   }
 }
