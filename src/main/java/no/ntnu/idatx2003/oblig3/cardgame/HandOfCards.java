@@ -14,4 +14,13 @@ public class HandOfCards {
   public HandOfCards(PlayingCard[] hand) {
     this.hand = hand;
   }
+
+  /**
+   * Returns the hand of cards
+   *
+   * @return the hand of cards
+   */
+  public PlayingCard[] getHand() {
+    return this.hand;
+  }
 }
