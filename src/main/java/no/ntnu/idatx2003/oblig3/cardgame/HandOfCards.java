@@ -23,4 +23,15 @@ public class HandOfCards {
   public PlayingCard[] getHand() {
     return this.hand;
   }
+
+  /**
+   * Returns the sum of the face values of the cards in the hand.
+   */
+  public int sumOfFaceValues() {
+    int sum = 0;
+    for (PlayingCard card : this.hand) {
+      sum += card.getFace();
+    }
+    return sum;
+  }
 }
