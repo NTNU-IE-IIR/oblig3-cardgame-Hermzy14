@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -235,6 +236,9 @@ public class CardGameUi extends Application {
    * Shows an error message if the user tries to check a hand before dealing one.
    */
   public void showErrorMessage() {
-    this.handView = new FlowPane(new Label("You have to be dealt a hand before you can check it."));
+    this.handView.getChildren().clear();
+    Text errorMessage = new Text("You must deal a hand before checking it.");
+    errorMessage.setStyle("-fx-fill: white;");
+    this.handView.getChildren().add(errorMessage);
   }
 }

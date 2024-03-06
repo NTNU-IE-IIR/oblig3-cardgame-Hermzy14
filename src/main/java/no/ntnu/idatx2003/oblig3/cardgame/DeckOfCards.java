@@ -24,7 +24,6 @@ public class DeckOfCards {
 
   /**
    * Deals a random hand of cards from the deck and returns them as a collection.
-   * // TODO: The user should not be able to recieve the same card twice
    *
    * @param n The random number of cards to deal
    * @return A collection of n cards
