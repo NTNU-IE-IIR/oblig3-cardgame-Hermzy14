@@ -16,3 +16,12 @@
 .bottom-pane {
     -fx-font-size: 16;
 }
+
+.center-pane {
+    -fx-background-color: #35654d;
+    -fx-background-radius: 10;
+}
+
+.hand-label {
+    -fx-text-fill: #f3f3f3f3;
+}

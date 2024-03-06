@@ -13,7 +13,6 @@ public class CardGameUiController {
    */
   public CardGameUiController(CardGameUi theUi) {
     this.deck = new DeckOfCards();
-    this.hand = new HandOfCards(this.deck.dealHand(5).getHand());
     this.ui = theUi;
   }
 
@@ -23,9 +22,13 @@ public class CardGameUiController {
   }
 
   public void doCheckHand() {
-    this.ui.setSumOfFaces(this.hand.sumOfFaceValues());
-    this.ui.setCardsOfHearts(this.hand.cardsOfHearts());
-    this.ui.setFlush(this.hand.isFlush());
-    this.ui.setQueenOfSpades(this.hand.hasQueenOfSpades());
+    try {
+      this.ui.setSumOfFaces(this.hand.sumOfFaceValues());
+      this.ui.setCardsOfHearts(this.hand.cardsOfHearts());
+      this.ui.setFlush(this.hand.isFlush());
+      this.ui.setQueenOfSpades(this.hand.hasQueenOfSpades());
+    } catch (Exception e) {
+      this.ui.showErrorMessage();
+    }
   }
 }
