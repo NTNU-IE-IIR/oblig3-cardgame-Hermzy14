@@ -1,5 +1,6 @@
 package no.ntnu.idatx2003.oblig3.cardgame;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -7,14 +8,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Border;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
 /**
@@ -24,7 +24,7 @@ public class CardGameUi extends Application {
   private CardGameUiController controller;
 
   private HandOfCards hand;
-  private Label handLabel;
+  private FlowPane handView;
 
   private Label sumOfFacesLabel;
   private Label cardsOfHeartsLabel;
@@ -89,19 +89,21 @@ public class CardGameUi extends Application {
       bottomPane.add(this.sumOfFacesLabel, 0, 0);
       this.cardsOfHeartsLabel = new Label("Cards of hearts: -");
       bottomPane.add(this.cardsOfHeartsLabel, 0, 1);
-      this.flushLabel = new Label("Flush: Yes/No"); //TODO: add if the hand is a flush
+      this.flushLabel = new Label("Flush: Yes/No");
       bottomPane.add(this.flushLabel, 1, 0);
-      this.queenOfSpadesLabel = new Label("Queen of spades: Yes/No"); //TODO: add if the hand contains the queen of spades
+      this.queenOfSpadesLabel = new Label("Queen of spades: Yes/No");
       bottomPane.add(this.queenOfSpadesLabel, 1, 1);
 
       // CENTER PANE
       FlowPane centerPane = new FlowPane();
-      this.handLabel = new Label("You have not been dealt a hand yet.\n" +
-          " Click the 'Deal hand' button to deal a hand of cards.");
-      this.handLabel.getStyleClass().add("hand-label");
       centerPane.setAlignment(Pos.CENTER);
+      this.handView = new FlowPane();
+      this.handView.setAlignment(Pos.CENTER);
+      this.handView.setHgap(10);
+      this.handView.getStyleClass().add("hand-label");
+      //centerPane.setAlignment(Pos.CENTER);
       centerPane.setHgap(10);
-      centerPane.getChildren().add(this.handLabel);
+      centerPane.getChildren().add(this.handView);
       centerPane.getStyleClass().add("center-pane");
 
       // adds the panes to the layout
@@ -131,22 +133,42 @@ public class CardGameUi extends Application {
   }
 
   /**
-   * Sets the hand of cards.
+   * Sets the hand of cards and displays them as images.
    *
    * @param hand The hand of cards.
    */
-  public void setHand(PlayingCard[] hand) { //TODO: add images of the cards
+  public void setHand(PlayingCard[] hand) {
     if (hand.length != 5) {
       throw new IllegalArgumentException("The hand must contain exactly 5 cards.");
     }
+    // clears the hand view
+    this.handView.getChildren().clear();
+    // creates a new hand of cards
     this.hand = new HandOfCards(hand);
-    this.handLabel.setText(
-        this.hand.getHand()[0].getAsString() + ", " +
-      this.hand.getHand()[1].getAsString() + ", " +
-      this.hand.getHand()[2].getAsString() + ", " +
-      this.hand.getHand()[3].getAsString() + ", " +
-      this.hand.getHand()[4].getAsString()
-    );
+    // loads the images of the cards
+    Image card1 = new Image("cards/" + this.hand.getHand()[0].getAsString() + ".png");
+    Image card2 = new Image("cards/" + this.hand.getHand()[1].getAsString() + ".png");
+    Image card3 = new Image("cards/" + this.hand.getHand()[2].getAsString() + ".png");
+    Image card4 = new Image("cards/" + this.hand.getHand()[3].getAsString() + ".png");
+    Image card5 = new Image("cards/" + this.hand.getHand()[4].getAsString() + ".png");
+    // creates image views of the cards
+    ImageView cardView1 = new ImageView(card1);
+    cardView1.setFitHeight(100);
+    cardView1.setPreserveRatio(true);
+    ImageView cardView2 = new ImageView(card2);
+    cardView2.setFitHeight(100);
+    cardView2.setPreserveRatio(true);
+    ImageView cardView3 = new ImageView(card3);
+    cardView3.setFitHeight(100);
+    cardView3.setPreserveRatio(true);
+    ImageView cardView4 = new ImageView(card4);
+    cardView4.setFitHeight(100);
+    cardView4.setPreserveRatio(true);
+    ImageView cardView5 = new ImageView(card5);
+    cardView5.setFitHeight(100);
+    cardView5.setPreserveRatio(true);
+    // adds the image views to the hand view
+    this.handView.getChildren().addAll(cardView1, cardView2, cardView3, cardView4, cardView5);
   }
 
   /**
@@ -215,7 +237,6 @@ public class CardGameUi extends Application {
    * Shows an error message if the user tries to check a hand before dealing one.
    */
   public void showErrorMessage() {
-    Text errorMessage = new Text("You have to be dealt a hand before you can check it.");
-    this.handLabel.setText(errorMessage.getText());
+    this.handView = new FlowPane(new Label("You have to be dealt a hand before you can check it."));
   }
 }
