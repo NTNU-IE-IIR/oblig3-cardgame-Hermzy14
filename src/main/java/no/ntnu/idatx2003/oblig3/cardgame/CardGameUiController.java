@@ -16,11 +16,17 @@ public class CardGameUiController {
     this.ui = theUi;
   }
 
+  /**
+   * Deals a hand of cards.
+   */
   public void doDealHand() {
     this.hand = new HandOfCards(this.deck.dealHand(5).getHand());
     this.ui.setHand(this.hand.getHand());
   }
 
+  /**
+   * Checks the hand of cards.
+   */
   public void doCheckHand() {
     try {
       this.ui.setSumOfFaces(this.hand.sumOfFaceValues());

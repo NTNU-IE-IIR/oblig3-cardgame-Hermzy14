@@ -24,6 +24,7 @@ public class DeckOfCards {
 
   /**
    * Deals a random hand of cards from the deck and returns them as a collection.
+   * // TODO: The user should not be able to recieve the same card twice
    *
    * @param n The random number of cards to deal
    * @return A collection of n cards
@@ -39,10 +40,15 @@ public class DeckOfCards {
     for (int i = 0; i < n; i++) {
       // Pick a random card from the deck
       int index = random.nextInt(this.deck.length);
-      // Add the card to the hand
+      // Checks to see if the card is already in the hand
+      for (PlayingCard card : hand) {
+        // If the card is already in the hand, pick a new card
+        if (card == this.deck[index]) {
+          index = random.nextInt(this.deck.length);
+        }
+      }
+      // If the card is not in the hand, add it to the hand
       hand[i] = this.deck[index];
-      // Remove the card from the deck
-      this.deck[index] = this.deck[this.deck.length - 1];
     }
 
     return new HandOfCards(hand);
