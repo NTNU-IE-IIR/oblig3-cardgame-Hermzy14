@@ -1,5 +1,6 @@
 package no.ntnu.idatx2003.oblig3.cardgame;
 
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -81,13 +82,13 @@ public class CardGameUi extends Application {
     bottomPane.setHgap(40);
     bottomPane.getStyleClass().add("bottom-pane");
 
-    this.sumOfFacesLabel = new Label("Sum of face values: "); //TODO: add the sum of the face values of the cards in the hand
+    this.sumOfFacesLabel = new Label("Sum of face values: -");
     bottomPane.add(this.sumOfFacesLabel, 0, 0);
-    this.cardsOfHeartsLabel = new Label("Cards of hearts: "); //TODO: add the cards of hearts in the hand
+    this.cardsOfHeartsLabel = new Label("Cards of hearts: -");
     bottomPane.add(this.cardsOfHeartsLabel, 0, 1);
-    this.flushLabel = new Label("Flush: "); //TODO: add if the hand is a flush
+    this.flushLabel = new Label("Flush: Yes/No"); //TODO: add if the hand is a flush
     bottomPane.add(this.flushLabel, 1, 0);
-    this.queenOfSpadesLabel = new Label("Queen of spades: "); //TODO: add if the hand contains the queen of spades
+    this.queenOfSpadesLabel = new Label("Queen of spades: Yes/No"); //TODO: add if the hand contains the queen of spades
     bottomPane.add(this.queenOfSpadesLabel, 1, 1);
 
     // CENTER PANE
@@ -117,6 +118,11 @@ public class CardGameUi extends Application {
     launch();
   }
 
+  /**
+   * Sets the hand of cards.
+   *
+   * @param hand The hand of cards.
+   */
   public void setHand(PlayingCard[] hand) { //TODO: add images of the cards
     this.hand = new HandOfCards(hand);
     this.handLabel.setText(
@@ -126,5 +132,61 @@ public class CardGameUi extends Application {
       this.hand.getHand()[3].getAsString() + ", " +
       this.hand.getHand()[4].getAsString()
     );
+  }
+
+  /**
+   * Sets the sum of the face values of the cards in the hand.
+   *
+   * @param sum The sum of the face values of the cards in the hand.
+   */
+  public void setSumOfFaces(int sum) {
+    this.sumOfFacesLabel.setText("Sum of face values: " + sum);
+  }
+
+  /**
+   * Sets the cards of hearts in the hand.
+   *
+   * @param cardsOfHearts The cards of hearts in the hand.
+   */
+  public void setCardsOfHearts(ArrayList<PlayingCard> cardsOfHearts) {
+    StringBuilder cardsOfHeartsString = new StringBuilder("Cards of hearts: ");
+    // adds the cards of hearts to the string
+    for (PlayingCard card : cardsOfHearts) {
+      cardsOfHeartsString.append(card.getAsString()).append(", ");
+    }
+    // removes the last comma and space
+    cardsOfHeartsString.delete(cardsOfHeartsString.length() - 2, cardsOfHeartsString.length());
+    // sets the label
+    if (cardsOfHearts.isEmpty()) {
+      this.cardsOfHeartsLabel.setText("Cards of hearts: -");
+    } else if (cardsOfHeartsString.length() > 0) {
+      this.cardsOfHeartsLabel.setText(cardsOfHeartsString.toString());
+    }
+  }
+
+  /**
+   * Sets whether the hand is a 5-flush or not.
+   *
+   * @param isFlush Whether the hand is a 5-flush or not.
+   */
+  public void setFlush(boolean isFlush) {
+    if (isFlush) {
+      this.flushLabel.setText("Flush: Yes");
+    } else {
+      this.flushLabel.setText("Flush: No");
+    }
+  }
+
+  /**
+   * Sets whether the hand contains the queen of spades or not.
+   *
+   * @param hasQueenOfSpades Whether the hand contains the queen of spades or not.
+   */
+  public void setQueenOfSpades(boolean hasQueenOfSpades) {
+    if (hasQueenOfSpades) {
+      this.queenOfSpadesLabel.setText("Queen of spades: Yes");
+    } else {
+      this.queenOfSpadesLabel.setText("Queen of spades: No");
+    }
   }
 }

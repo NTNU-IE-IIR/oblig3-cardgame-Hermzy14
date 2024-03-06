@@ -23,6 +23,9 @@ public class CardGameUiController {
   }
 
   public void doCheckHand() {
-    System.out.println("Checking hand");
+    this.ui.setSumOfFaces(this.hand.sumOfFaceValues());
+    this.ui.setCardsOfHearts(this.hand.cardsOfHearts());
+    this.ui.setFlush(this.hand.isFlush());
+    this.ui.setQueenOfSpades(this.hand.hasQueenOfSpades());
   }
 }
