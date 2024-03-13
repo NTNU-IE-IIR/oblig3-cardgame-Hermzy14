@@ -166,32 +166,35 @@ public class CardGameUi extends Application {
     if (hand.length != 5) {
       throw new IllegalArgumentException("The hand must contain exactly 5 cards.");
     }
+
     // clears the hand view
     this.handView.getChildren().clear();
+
     // creates a new hand of cards
     this.hand = new HandOfCards(hand);
-    // loads the images of the cards
+
+    // creates the images of each card
     Image card1 = new Image("cards/" + this.hand.getHand()[0].getAsString() + ".png");
-    Image card2 = new Image("cards/" + this.hand.getHand()[1].getAsString() + ".png");
-    Image card3 = new Image("cards/" + this.hand.getHand()[2].getAsString() + ".png");
-    Image card4 = new Image("cards/" + this.hand.getHand()[3].getAsString() + ".png");
-    Image card5 = new Image("cards/" + this.hand.getHand()[4].getAsString() + ".png");
-    // creates image views of the cards
     ImageView cardView1 = new ImageView(card1);
     cardView1.setFitHeight(100);
     cardView1.setPreserveRatio(true);
+    Image card2 = new Image("cards/" + this.hand.getHand()[1].getAsString() + ".png");
     ImageView cardView2 = new ImageView(card2);
     cardView2.setFitHeight(100);
     cardView2.setPreserveRatio(true);
+    Image card3 = new Image("cards/" + this.hand.getHand()[2].getAsString() + ".png");
     ImageView cardView3 = new ImageView(card3);
     cardView3.setFitHeight(100);
     cardView3.setPreserveRatio(true);
+    Image card4 = new Image("cards/" + this.hand.getHand()[3].getAsString() + ".png");
     ImageView cardView4 = new ImageView(card4);
     cardView4.setFitHeight(100);
     cardView4.setPreserveRatio(true);
+    Image card5 = new Image("cards/" + this.hand.getHand()[4].getAsString() + ".png");
     ImageView cardView5 = new ImageView(card5);
     cardView5.setFitHeight(100);
     cardView5.setPreserveRatio(true);
+
     // adds the image views to the hand view
     this.handView.getChildren().addAll(cardView1, cardView2, cardView3, cardView4, cardView5);
   }

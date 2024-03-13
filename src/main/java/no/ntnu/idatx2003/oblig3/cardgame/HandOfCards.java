@@ -18,7 +18,7 @@ public class HandOfCards {
   }
 
   /**
-   * Returns the hand of cards
+   * Returns the hand of cards.
    *
    * @return the hand of cards
    */
@@ -56,16 +56,16 @@ public class HandOfCards {
    * Returns whether the hand is a flush or not.
    *
    * @return whether the hand is a flush or not. Returns true if the hand is a flush,
-   * and false if it is not.
+   *         and false if it is not.
    */
   public boolean isFlush() {
     boolean isFlush = false;
 
     if (
-        this.hand[0].getSuit() == this.hand[1].getSuit() &&
-        this.hand[1].getSuit() == this.hand[2].getSuit() &&
-        this.hand[2].getSuit() == this.hand[3].getSuit() &&
-        this.hand[3].getSuit() == this.hand[4].getSuit()
+        this.hand[0].getSuit() == this.hand[1].getSuit()
+            && this.hand[1].getSuit() == this.hand[2].getSuit()
+            && this.hand[2].getSuit() == this.hand[3].getSuit()
+            && this.hand[3].getSuit() == this.hand[4].getSuit()
     ) {
       isFlush = true;
     }
@@ -77,7 +77,7 @@ public class HandOfCards {
    * Returns whether the hand has the queen of spades or not.
    *
    * @return whether the hand has the queen of spades or not.
-   * Returns true if the hand has the queen of spades, and false if it does not.
+   *         Returns true if the hand has the queen of spades, and false if it does not.
    */
   public boolean hasQueenOfSpades() {
     boolean hasQueenOfSpades = false;
