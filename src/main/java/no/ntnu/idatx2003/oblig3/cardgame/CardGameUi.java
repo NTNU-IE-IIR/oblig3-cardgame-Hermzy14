@@ -1,9 +1,11 @@
 package no.ntnu.idatx2003.oblig3.cardgame;
 
 import java.util.ArrayList;
+import javafx.animation.Animation;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -57,69 +59,93 @@ public class CardGameUi extends Application {
     BorderPane rootNode = new BorderPane();
 
     try {
-      // THE RIGHT PANE
-      Button dealHandButton = new Button("Deal hand");
-      dealHandButton.setOnAction(event -> {
-        this.controller.doDealHand();
-      });
-      // creates check hand button
-      Button checkHandButton = new Button("Check hand");
-      checkHandButton.setOnAction(event -> {
-        this.controller.doCheckHand();
-      });
-      // adds a style class to the buttons
-      dealHandButton.getStyleClass().add("button");
-      checkHandButton.getStyleClass().add("button");
-      // creates a vertical box and adds the buttons to it
-      VBox rightPane = new VBox();
-      rightPane.getChildren().addAll(dealHandButton, checkHandButton);
-      // sets the spacing between the buttons
-      rightPane.setSpacing(10);
-      // sets the alignment of the buttons to be at the center
-      rightPane.setAlignment(Pos.CENTER);
-
-      // BOTTOM PANE
-      GridPane bottomPane = new GridPane();
-      bottomPane.setAlignment(Pos.CENTER);
-      bottomPane.setHgap(40);
-      bottomPane.getStyleClass().add("bottom-pane");
-
-      this.sumOfFacesLabel = new Label("Sum of face values: -");
-      bottomPane.add(this.sumOfFacesLabel, 0, 0);
-      this.cardsOfHeartsLabel = new Label("Cards of hearts: -");
-      bottomPane.add(this.cardsOfHeartsLabel, 0, 1);
-      this.flushLabel = new Label("Flush: Yes/No");
-      bottomPane.add(this.flushLabel, 1, 0);
-      this.queenOfSpadesLabel = new Label("Queen of spades: Yes/No");
-      bottomPane.add(this.queenOfSpadesLabel, 1, 1);
-
-      // CENTER PANE
-      FlowPane centerPane = new FlowPane();
-      centerPane.setAlignment(Pos.CENTER);
-      this.handView = new FlowPane();
-      this.handView.setAlignment(Pos.CENTER);
-      this.handView.setHgap(10);
-      this.handView.getStyleClass().add("hand-label");
-      //centerPane.setAlignment(Pos.CENTER);
-      centerPane.setHgap(10);
-      centerPane.getChildren().add(this.handView);
-      centerPane.getStyleClass().add("center-pane");
-
       // adds the panes to the layout
-      rootNode.setRight(rightPane);
-      rootNode.setCenter(centerPane);
-      rootNode.setBottom(bottomPane);
-      // padding between the panes
-      BorderPane.setMargin(rightPane, new Insets(10));
-      BorderPane.setMargin(centerPane, new Insets(10));
-      BorderPane.setMargin(bottomPane, new Insets(10));
-
+      rootNode.setRight(this.createRightPane());
+      rootNode.setCenter(this.createCenterPane());
+      rootNode.setBottom(this.createBottomPane());
+      // padding between the panes and the window
       rootNode.setPadding(new Insets(30));
     } catch (Exception e) {
       System.out.println("An error occurred: " + e.getMessage());
     }
 
     return rootNode;
+  }
+
+  /**
+   * Creates the right pane which will contain the buttons for dealing and checking the hand.
+   *
+   * @return The right pane.
+   */
+  private VBox createRightPane() {
+    Button dealHandButton = new Button("Deal hand");
+    dealHandButton.setOnAction(event -> {
+      this.controller.doDealHand();
+    });
+    // creates check hand button
+    Button checkHandButton = new Button("Check hand");
+    checkHandButton.setOnAction(event -> {
+      this.controller.doCheckHand();
+    });
+    // adds a style class to the buttons
+    dealHandButton.getStyleClass().add("button");
+    checkHandButton.getStyleClass().add("button");
+    // creates a vertical box and adds the buttons to it
+    VBox rightPane = new VBox();
+    rightPane.getChildren().addAll(dealHandButton, checkHandButton);
+    // sets the spacing between the buttons
+    rightPane.setSpacing(10);
+    // sets the padding of the buttons
+    rightPane.setPadding(new Insets(10));
+    // sets the alignment of the buttons to be at the center
+    rightPane.setAlignment(Pos.CENTER);
+
+    return rightPane;
+  }
+
+  /**
+   * Creates the center pane which will contain the main content.
+   *
+   * @return The center pane.
+   */
+  private FlowPane createCenterPane() {
+    FlowPane centerPane = new FlowPane();
+
+    centerPane.setAlignment(Pos.CENTER);
+    Text handLabel = new Text("Deal a hand to see the cards.");
+    handLabel.setStyle("-fx-fill: white;");
+    this.handView = new FlowPane(handLabel);
+    this.handView.setAlignment(Pos.CENTER);
+    this.handView.setHgap(10);
+    centerPane.setHgap(10);
+    centerPane.getChildren().add(this.handView);
+    centerPane.getStyleClass().add("center-pane");
+
+    return centerPane;
+  }
+
+  /**
+   * Creates the bottom pane which will contain the labels for the sum of face values, cards of
+   * hearts, flush, and queen of spades.
+   */
+  private GridPane createBottomPane() {
+    GridPane bottomPane = new GridPane();
+
+    bottomPane.setAlignment(Pos.CENTER);
+    bottomPane.setPadding(new Insets(10));
+    bottomPane.setHgap(40);
+    bottomPane.getStyleClass().add("bottom-pane");
+
+    this.sumOfFacesLabel = new Label("Sum of face values: -");
+    bottomPane.add(this.sumOfFacesLabel, 0, 0);
+    this.cardsOfHeartsLabel = new Label("Cards of hearts: -");
+    bottomPane.add(this.cardsOfHeartsLabel, 0, 1);
+    this.flushLabel = new Label("Flush: Yes/No");
+    bottomPane.add(this.flushLabel, 1, 0);
+    this.queenOfSpadesLabel = new Label("Queen of spades: Yes/No");
+    bottomPane.add(this.queenOfSpadesLabel, 1, 1);
+
+    return bottomPane;
   }
 
   /**

@@ -1,5 +1,9 @@
+.root {
+    -fx-background-color: #f2ede4;
+}
+
 .button {
-    -fx-background-color: #f4f4f4;
+    -fx-background-color: #f2ede4;
     -fx-background-radius: 5;
     -fx-border-color: #000000;
     -fx-border-radius: 5;
@@ -20,8 +24,4 @@
 .center-pane {
     -fx-background-color: #35654d;
     -fx-background-radius: 10;
-}
-
-.hand-label {
-    -fx-text-fill: #f3f3f3f3;
 }
